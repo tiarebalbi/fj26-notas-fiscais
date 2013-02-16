@@ -18,16 +18,26 @@
 				<li><a href="lista-produtos.xhtml"><span class="icon"></span>Produto(s)</a></li>
 			</ul>
 		</div>
+		<div class="copyright">
+			<div class="logo-caelum"></div>
+			Curso FJ-26<br/>
+			Tiarê Balbi Bonamini
+		</div>
 	</div>
 	<div class="container-custom">
 		<div class="content">
 			<div class="span12">
-				
 				<h:form>
 					<h3>
 						<h:outputText value="Cadastro de Produto" rendered="#{empty produtoBean.produto.id}" />
 						<h:outputText value="Edição de Produto" rendered="#{not empty produtoBean.produto.id}" />
 					</h3>
+					<!--Mensagem-->
+					<h:outputFormat rendered="#{not empty produtoBean.mensagem}">
+						<span class="alert alert-success span8">#{produtoBean.mensagem}</span>
+					</h:outputFormat>
+					
+					
 					<h:panelGrid columns="2">
 						<h:outputLabel value="Nome:" for="nome"></h:outputLabel>
 						<h:inputText value="#{produtoBean.produto.nome}" id="nome" />
@@ -54,10 +64,12 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">Descrição</f:facet>
+							<f:facet name="footer">Total:</f:facet>
 							#{produto.descricao}
 						</h:column>
 						<h:column>
 							<f:facet name="header">Preço</f:facet>
+							<f:facet name="footer">R$ #{produtoBean.somatoria}</f:facet>
 							R$ #{produto.preco}
 						</h:column>
 						<h:column>
