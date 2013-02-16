@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Sistema de Notas Fiscais</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+	<div class="header">
+		<h1>Uberdist</h1>
+	</div>
+	<div class="sidebar">
+		<div class="menu">
+			<ul>
+				<li><a href="index.xhtml"><span class="icon"></span>Página Inicial</a></li>
+				<li><a href="lista-produtos.xhtml"><span class="icon"></span>Produto(s)</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="container-custom">
+		<div class="content">
+			<div class="span12">
+				<h3>Cadastro de Produto</h3>
+				<h:form>
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Nome:" for="nome"></h:outputLabel>
+						<h:inputText value="#{produtoBean.produto.nome}" id="nome" />
+					
+						<h:outputLabel value="Descrição:" for="descricao"></h:outputLabel>
+						<h:inputTextarea value="#{produtoBean.produto.descricao}" id="descricao" />
+						
+						<h:outputLabel value="Preço:" for="preco"></h:outputLabel>
+						<h:inputText id="preco" value="#{produtoBean.produto.preco}" />
+						
+						<h:commandButton value="Gravar" action="#{produtoBean.grava}" styleClass="btn btn-inverse"></h:commandButton>
+					
+					</h:panelGrid>
+				</h:form>
+			</div>
+			<div class="span12">
+				<h3>Lista de Produto</h3>
+				<h:form>
+					<h:dataTable value="#{produtoBean.produtos}" var="produto" styleClass="table table-striped">
+						<h:column>
+							<f:facet name="header">Nome</f:facet>
+							#{produto.nome}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Descrição</f:facet>
+							#{produto.descricao}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Preço</f:facet>
+							R$ #{produto.preco}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Ação</f:facet>
+							<h:commandLink value="Alterar" styleClass="btn">
+								<f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produto}"></f:setPropertyActionListener>
+							</h:commandLink>
+							<h:commandLink action="#{produtoBean.remove(produto)}" value="Remover" styleClass="btn"></h:commandLink>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+			</div>
+		</div>
+	</div>
+
+</h:body>
+</html>
