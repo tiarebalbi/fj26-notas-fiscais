@@ -50,4 +50,8 @@ public class ProdutoBean {
 		this.produtos = dao.listaTodos();
 	}
 	
+	public void clean() {
+		this.produto = new Produto();
+	}
+	
 }
