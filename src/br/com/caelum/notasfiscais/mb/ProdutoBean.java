@@ -8,6 +8,15 @@ import javax.faces.bean.ViewScoped;
 import br.com.caelum.notasfiscais.dao.DAO;
 import br.com.caelum.notasfiscais.modelo.Produto;
 
+/**
+ * Produto Bean - Class para manipulação da entidade {@link Produto}
+ * 
+ * @author Tiarê Balbi Bonamini
+ * @date Feb 23, 2013
+ * @package br.com.caelum.notasfiscais.mb
+ * @see Produto
+ *
+ */
 @ManagedBean
 @ViewScoped
 public class ProdutoBean {
@@ -20,16 +29,51 @@ public class ProdutoBean {
 	
 	private String mensagem = "";
 	
+	private DAO<Produto> dao;
+	
+	/**
+	 * @return DAO<Produto>
+	 */
+	public DAO<Produto> getDao() {
+		return dao;
+	}
+
+	/**
+	 * @param dao
+	 */
+	public void setDao(DAO<Produto> dao) {
+		this.dao = dao;
+	}
+	
+	/**
+	 * 
+	 */
+	public ProdutoBean() {
+		this.dao = new DAO<Produto>(Produto.class);
+	}
+
+	/**
+	 * Getter de {@link #produto}
+	 * 
+	 * @return produto 
+	 */
 	public Produto getProduto() {
 		return produto;
 	}
 
+	/**
+	 * Setter de {@link #produto}
+	 * 
+	 * @param produto 
+	 */
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
 
+	/**
+	 * Método responsável em gravar um novo produto;
+	 */
 	public void grava() {
-		DAO<Produto> dao = new DAO<Produto>(Produto.class);
 		
 		if(this.produto.getId() == null) {
 			dao.adiciona(this.produto);
@@ -43,9 +87,13 @@ public class ProdutoBean {
 		this.somatoria = this.doSomatoria(produtos);
 	}
 	
+	/**
+	 * Método responsável em retornar lista completa de produtos cadastrados
+	 * 
+	 * @return List<Produto> retorna a lista de produtos cadastrado
+	 */
 	public List<Produto> getProdutos() {
 		if(this.produtos == null) {
-			DAO<Produto> dao = new DAO<Produto>(Produto.class);
 			this.produtos = dao.listaTodos();
 			this.somatoria = this.doSomatoria(produtos);
 		}
@@ -53,22 +101,44 @@ public class ProdutoBean {
 		return this.produtos;
 	}
 	
+	/**
+	 * @param produtos
+	 */
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	/**
+	 *  Método para remover um produto já cadastrado
+	 *  
+	 * @param produto Objeto {@link #produto} que deverá ser removido
+	 */
 	public void remove(Produto produto) {
-		DAO<Produto> dao = new DAO<Produto>(Produto.class);
 		dao.remove(produto);
 		this.produtos = dao.listaTodos();
 		this.somatoria = this.doSomatoria(produtos);
 		this.mensagem = "Registro Removido com Sucesso";
 	}
 	
+	/**
+	 * Limpa o objeto produto
+	 */
 	public void clean() {
 		this.produto = new Produto();
 	}
 	
+	/**
+	 * Getter para retorno do preço total
+	 * 
+	 * @return somatoria Retornar o preço total
+	 */
 	public double getSomatoria () {
 		return this.somatoria;
 	}
 	
+	/**
+	 * @return mensagem retorna String com a mensagem definida.
+	 */
 	public String getMensagem () {
 		return this.mensagem;
 	}
