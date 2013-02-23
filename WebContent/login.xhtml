@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Sistema de Notas Fiscais</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link href="css/login.css" rel="stylesheet" type="text/css" />
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+	<div class="header">
+		<h1>Uberdist</h1>
+	</div>
+	<div class="container">
+      <h:form styleClass="form-signin">
+        <h2 class="form-signin-heading">Login</h2>
+        	<!--Mensagem-->
+			<h:outputFormat rendered="#{not empty loginBean.mensagem}">
+				<span class="alert alert-error span3">#{loginBean.mensagem}</span>
+			</h:outputFormat>
+			<div class="control-group">
+		    	<h:outputLabel value="Login"></h:outputLabel>
+		    	<div class="controls">
+		      		<h:inputText value="#{loginBean.usuario.login}"></h:inputText>
+		    	</div>
+			</div>
+			<div class="control-group">
+		    	<h:outputLabel value="Senha"></h:outputLabel>
+		    	<div class="controls">
+		      		<h:inputSecret value="#{loginBean.usuario.senha}" />
+		    	</div>
+			</div>
+        	<div class="control-group">
+			    <div class="controls">
+			      <h:commandButton styleClass="btn btn-info" value="Entrar" action="#{loginBean.efetuarLogin}"></h:commandButton>
+			    </div>
+			</div>
+      </h:form>
+
+    </div> <!-- /container -->
+</h:body>
+</html>
