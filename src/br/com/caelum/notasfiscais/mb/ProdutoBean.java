@@ -72,6 +72,7 @@ public class ProdutoBean {
 
 	/**
 	 * Método responsável em gravar um novo produto;
+	 * @throws InterruptedException 
 	 */
 	public void grava() {
 		
@@ -121,6 +122,13 @@ public class ProdutoBean {
 	}
 	
 	/**
+	 * @param mensagem
+	 */
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+
+	/**
 	 * Limpa o objeto produto
 	 */
 	public void clean() {
@@ -146,9 +154,11 @@ public class ProdutoBean {
 	private double doSomatoria(List<Produto> produtos) {
 		double valor = 0;
 		
-		for (Produto produto : produtos) {
-			valor += produto.getPreco();
-		}
+			for (Produto produto : produtos) {
+				if(produto.getPreco() != null) {
+					valor += produto.getPreco();
+				}
+			}
 		
 		return valor;
 	}

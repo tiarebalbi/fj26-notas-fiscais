@@ -12,7 +12,7 @@ public class DAO<T> {
 		this.classe = classe;
 	}
 
-	public void adiciona(T t) {
+	public T adiciona(T t) {
 		//consegue a entity manager
 		EntityManager em = new JPAUtil().getEntityManager();
 		//abre transacao
@@ -26,6 +26,8 @@ public class DAO<T> {
 
 		//fecha a entity manager
 		em.close();
+		
+		return t;
 	}
 
 	public void remove(T t) {
@@ -38,7 +40,7 @@ public class DAO<T> {
 		em.close();
 	}
 
-	public void atualiza(T t) {
+	public T atualiza(T t) {
 		EntityManager em = new JPAUtil().getEntityManager();
 		em.getTransaction().begin();
 
@@ -46,6 +48,8 @@ public class DAO<T> {
 
 		em.getTransaction().commit();
 		em.close();
+		
+		return t;
 	}
 
 	public List<T> listaTodos() {
