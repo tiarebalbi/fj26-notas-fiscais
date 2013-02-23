@@ -4,6 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * //TODO Descreva por que você esta criando esta classe ?
+ * 
+ * @author Tiarê Balbi Bonamini
+ * @date Feb 23, 2013
+ * @package br.com.caelum.notasfiscais.modelo
+ *
+ */
 @Entity
 public class Usuario {
 
@@ -15,6 +23,9 @@ public class Usuario {
 
 	private String senha;
 
+	/**
+	 * @return Long
+	 */
 	public Long getId() {
 		return id;
 	}

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Sistema de Notas Fiscais</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+	<div class="header">
+		<h1 style="float: left;">Uberdist</h1>
+		<span style="float: right; margin-right: 10px; line-height: 35px;">Usuário: <b>#{loginBean.usuario.login}</b></span>
+		<span style="float: right; margin-right: 10px; line-height: 35px;">
+			<h:form>
+				<h:commandLink action="#{loginBean.logout}" value="Sair" />
+			</h:form>
+		</span>
+	</div>
+	<div class="sidebar">
+		<div class="menu">
+			<ul>
+				<li><a href="index.xhtml"><span class="icon"></span>Página Inicial</a></li>
+				<li><a href="produto.xhtml"><span class="icon"></span>Produto(s)</a></li>
+			</ul>
+		</div>
+		<div class="copyright">
+			<div class="logo-caelum"></div>
+			Curso FJ-26<br/>
+			Tiarê Balbi Bonamini
+		</div>
+	</div>
+	<div class="container-custom container-fluid">
+		<div class="content span12">
+			<!-- Conteúdo -->
+			<ui:insert name="corpo" />
+		</div>
+	</div>
+
+</h:body>
+</html>

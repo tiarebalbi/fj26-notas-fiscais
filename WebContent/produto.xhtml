@@ -1,68 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html">
-<h:head>
-	<title>Sistema de Notas Fiscais</title>
-	<link href="css/style.css" rel="stylesheet" type="text/css" />
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-</h:head>
-<h:body>
-	<div class="header">
-		<h1 style="float: left;">Uberdist</h1>
-		<span style="float: right; margin-right: 10px; line-height: 35px;">Usuário: <b>#{loginBean.usuario.login}</b></span>
-	</div>
-	<div class="sidebar">
-		<div class="menu">
-			<ul>
-				<li><a href="index.xhtml"><span class="icon"></span>Página Inicial</a></li>
-				<li><a href="produto.xhtml"><span class="icon"></span>Produto(s)</a></li>
-			</ul>
-		</div>
-		<div class="copyright">
-			<div class="logo-caelum"></div>
-			Curso FJ-26<br/>
-			Tiarê Balbi Bonamini
-		</div>
-	</div>
-	<div class="container-custom container-fluid">
-		<div class="content span12">
+	<ui:composition template="/_template.xhtml">
+		<ui:define name="corpo">
 			<div class="span12">
 				<h:form id="productRegister">
 					<h3>
-						<h:outputText value="Cadastro de Produto" rendered="#{empty produtoBean.produto.id}" />
-						<h:outputText value="Edição de Produto" rendered="#{not empty produtoBean.produto.id}" />
+						<h:outputText value="Cadastro de Produto"
+							rendered="#{empty produtoBean.produto.id}" />
+						<h:outputText value="Edição de Produto"
+							rendered="#{not empty produtoBean.produto.id}" />
 					</h3>
 					<!--Mensagem-->
 					<h:outputFormat rendered="#{not empty produtoBean.mensagem}">
 						<span class="alert alert-success span8">#{produtoBean.mensagem}</span>
 					</h:outputFormat>
-					
-					
+	
+	
 					<h:panelGrid columns="2">
-							<h:outputLabel value="Nome:" for="nome"></h:outputLabel>
-							<h:inputText value="#{produtoBean.produto.nome}" id="nome">
-							</h:inputText>
-						
-							<h:outputLabel value="Descrição:" for="descricao"></h:outputLabel>
-							<h:inputTextarea value="#{produtoBean.produto.descricao}" id="descricao" />
-							
-							<h:outputLabel value="Preço:" for="preco"></h:outputLabel>
-							<h:inputText id="preco" value="#{produtoBean.produto.preco}" />
-							
-							<h:commandButton value="Gravar" action="#{produtoBean.grava}" styleClass="btn btn-inverse">
-								<f:ajax execute="@form" render="@form :produtosList"></f:ajax>
-							</h:commandButton>
-							<h:commandButton value="Cancelar" rendered="#{not empty produtoBean.produto.id}" action="#{produtoBean.clean}" styleClass="btn btn-primary">
-								<f:ajax execute="@form" render="@form :produtosList"></f:ajax>
-							</h:commandButton>
+						<h:outputLabel value="Nome:" for="nome"></h:outputLabel>
+						<h:inputText value="#{produtoBean.produto.nome}" id="nome">
+						</h:inputText>
+	
+						<h:outputLabel value="Descrição:" for="descricao"></h:outputLabel>
+						<h:inputTextarea value="#{produtoBean.produto.descricao}"
+							id="descricao" />
+	
+						<h:outputLabel value="Preço:" for="preco"></h:outputLabel>
+						<h:inputText id="preco" value="#{produtoBean.produto.preco}" />
+	
+						<h:commandButton value="Gravar" action="#{produtoBean.grava}"
+							styleClass="btn btn-inverse">
+							<f:ajax execute="@form" render="@form :produtosList"></f:ajax>
+						</h:commandButton>
+						<h:commandButton value="Cancelar"
+							rendered="#{not empty produtoBean.produto.id}"
+							action="#{produtoBean.clean}" styleClass="btn btn-primary">
+							<f:ajax execute="@form" render="@form :produtosList"></f:ajax>
+						</h:commandButton>
 					</h:panelGrid>
 				</h:form>
 			</div>
 			<div class="span12">
 				<h3>Lista de Produto</h3>
 				<h:form id="produtosList">
-					<h:dataTable value="#{produtoBean.produtos}" var="produto" styleClass="table table-striped">
+					<h:dataTable value="#{produtoBean.produtos}" var="produto"
+						styleClass="table table-striped">
 						<h:column>
 							<f:facet name="header">Nome</f:facet>
 							#{produto.nome}
@@ -80,19 +64,19 @@
 						<h:column>
 							<f:facet name="header">Ação</f:facet>
 							<h:commandLink value="Alterar" styleClass="btn">
-								<f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produto}">
+								<f:setPropertyActionListener value="#{produto}"
+									target="#{produtoBean.produto}">
 									<f:ajax render=":productRegister @form"></f:ajax>
 								</f:setPropertyActionListener>
 							</h:commandLink>
-							<h:commandLink action="#{produtoBean.remove(produto)}" value="Remover" styleClass="btn btn-danger">
+							<h:commandLink action="#{produtoBean.remove(produto)}"
+								value="Remover" styleClass="btn btn-danger">
 								<f:ajax render="@form"></f:ajax>
 							</h:commandLink>
 						</h:column>
 					</h:dataTable>
 				</h:form>
 			</div>
-		</div>
-	</div>
-
-</h:body>
+		</ui:define>
+	</ui:composition>
 </html>

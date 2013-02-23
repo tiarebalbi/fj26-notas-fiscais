@@ -8,6 +8,11 @@
 
 	<web>
 		<link target="/">
+			<dir name="/home/jsf3203/workspace/fj26-notas-fiscais/target/m2e-wtp/web-resources">
+				<exclude name="/"/>
+			</dir>
+		</link>
+		<link target="/">
 			<dir name="/home/jsf3203/workspace/fj26-notas-fiscais/WebContent">
 			</dir>
 		</link>

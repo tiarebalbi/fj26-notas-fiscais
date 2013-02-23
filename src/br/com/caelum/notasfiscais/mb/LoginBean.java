@@ -26,20 +26,17 @@ public class LoginBean {
 	private String mensagem = "";
 	
 	/**
-	 * Deve efetuar o login do usuário
-	 * @return pagina pagina que deverá ser aberta após enviar o form
+	 * @return pagina Deve efetuar o login do usuário
 	 */
 	public String efetuarLogin() {
 		UsuarioDAO dao = new UsuarioDAO();
 		Boolean status = dao.existe(usuario);
 		if(status) {
-			return "index";
-		}else {
-			this.usuario.setSenha("");
-			this.mensagem = "Usuário não foi encontrado";
-			return "login";
+			return "index?faces-redirect=true";
 		}
-		
+		this.usuario.setSenha("");
+		this.mensagem = "Usuário não foi encontrado";
+		return "login?faces-redirect=true";
 	}
 	/**
 	 * @return Usuario
@@ -53,5 +50,21 @@ public class LoginBean {
 	 */
 	public String getMensagem() {
 		return mensagem;
+	}
+	
+	/**
+	 * Método de deslogar usuário
+	 * @return pagina redirect para página de login
+	 */
+	public String logout () {
+		this.usuario = new Usuario();
+		return "login?faces-redirect=true";
+	}
+	
+	/**
+	 * @return boolean
+	 */
+	public boolean isLogado() {
+		return this.getUsuario().getLogin() != null;
 	}
 }

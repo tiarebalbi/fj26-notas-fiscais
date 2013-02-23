@@ -1,54 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:caelum="http://java.sun.com/jsf/composite/caelum"
 	xmlns:h="http://java.sun.com/jsf/html">
-<h:head>
-	<title>Sistema de Notas Fiscais</title>
-	<link href="css/style.css" rel="stylesheet" type="text/css" />
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-</h:head>
-<h:body>
-	<div class="header">
-		<h1 style="float: left;">Uberdist</h1>
-		<span style="float: right; margin-right: 10px; line-height: 35px;">Usuário: <b>#{loginBean.usuario.login}</b></span>
-	</div>
-	<div class="sidebar">
-		<div class="menu">
-			<ul>
-				<li><a href="index.xhtml"><span class="icon"></span>Página Inicial</a></li>
-				<li><a href="produto.xhtml"><span class="icon"></span>Produto(s)</a></li>
-			</ul>
-		</div>
-		<div class="copyright">
-			<div class="logo-caelum"></div>
-			Curso FJ-26<br/>
-			Tiarê Balbi Bonamini
-		</div>
-	</div>
-	<div class="container-custom container-fluid">
-		<div class="content span12">
-	      <div class="hero-unit">
+<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+		<div class="hero-unit">
 	        <h1>Bem Vindo, #{loginBean.usuario.login}</h1>
 	        <p>Esta aplicação foi desenvolvida durante o curso FJ-26 na Caelum.</p>
-	        <p><a href="http://www.caelum.com.br/curso-java-web-jsf-cdi/" target="_blank" class="btn btn-primary btn-large">Veja Mais &raquo;</a></p>
+	        <p><a href="http://www.caelum.com.br/curso-java-web-jsf-cdi/" target="_blank" class="btn btn-primary btn-large">Veja Mais </a></p>
 	      </div>
 	
 	      <!-- Example row of columns -->
 	      <div class="row">
 	        <div class="span8">
-	          <h3>Últimas Produtos</h3>
-	          <p>TODO</p>
-	          <p><a class="btn" href="#">Veja Mais &raquo;</a></p>
+	          <h3>Chat</h3>
 	        </div>
 	        <div class="span4">
-	          <h3>Minhas Informações</h3>
+	          <h3>Usuário(s)</h3>
 	          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-	          <p><a class="btn" href="#">View details &raquo;</a></p>
+	          <p><a class="btn" href="#">View details</a></p>
 	       </div>
 	      </div>
-
-		</div>
-	</div>
-
-</h:body>
+	</ui:define>
+</ui:composition>
 </html>

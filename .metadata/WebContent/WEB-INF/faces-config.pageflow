@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13610209737930" configfile="/fj26-notas-fiscais/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="122" y="370" id="pf13616356935090" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13616356935101 pf13616356935102" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="produto.xhtml" x="338" y="178" id="pf13616356935103" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13616356935101" path="/produto.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="562" id="pf13616356935104" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf13616356935102" path="/index.xhtml"/>
-  <links id="pf13616356935101" target="pf13616356935103" source="pf13616356935090" outcome="produto"/>
-  <links id="pf13616356935102" target="pf13616356935104" source="pf13616356935090" outcome="index"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="132" y="216" id="pf13616356935090" referenceLink="//@navigationRule.0/@fromViewId|" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="312" y="216" id="pf13616356935104" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" path="/index.xhtml"/>
 </pageflow:Pageflow>
