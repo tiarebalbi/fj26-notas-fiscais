@@ -31,10 +31,11 @@ public class NotaFiscalBean implements Serializable {
 	private NotaFiscal notaFiscal = new NotaFiscal();
 	private String mensagem;
 	
-	public void guardar() {
+	public String guardar() {
 		DAO<NotaFiscal> dao = new DAO<NotaFiscal>(NotaFiscal.class);
 		dao.adiciona(notaFiscal);
 		this.notaFiscal = new NotaFiscal();
+		return "notafiscal?face-redirect=true";
 	}
 	
 	public void guardaItem() {

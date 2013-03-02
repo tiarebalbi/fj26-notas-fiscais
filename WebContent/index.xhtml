@@ -1,28 +1,88 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:caelum="http://java.sun.com/jsf/composite/caelum"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://java.sun.com/jsf/html">
 <ui:composition template="/_template.xhtml">
 	<ui:define name="corpo">
 		<div class="hero-unit">
-	        <h1>Bem Vindo, #{loginBean.usuario.login}</h1>
-	        <p>Esta aplicação foi desenvolvida durante o curso FJ-26 na Caelum.</p>
-	        <p><a href="http://www.caelum.com.br/curso-java-web-jsf-cdi/" target="_blank" class="btn btn-primary btn-large">Veja Mais </a></p>
-	      </div>
-	
-	      <!-- Example row of columns -->
-	      <div class="row">
-	        <div class="span8">
-	          <h3>Chat</h3>
-	          <caelum:campoTexto label="adw" valor="w2"></caelum:campoTexto>
-	        </div>
-	        <div class="span4">
-	          <h3>Usuário(s)</h3>
-	          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-	          <p><a class="btn" href="#">View details</a></p>
-	       </div>
-	      </div>
+			<h1>Bem Vindo, #{loginBean.usuario.login}</h1>
+			<p>Esta aplicação foi desenvolvida durante o curso FJ-26 na
+				Caelum.</p>
+			<p>
+				<a href="http://www.caelum.com.br/curso-java-web-jsf-cdi/"
+					target="_blank" class="btn btn-primary btn-large">Veja Mais </a>
+			</p>
+		</div>
+
+		<!-- Example row of columns -->
+		<p:growl id="growl" showDetail="true" />
+
+		<div class="row-fluid">
+			<div class="span12">
+				<h3>Chat</h3>
+				<h:form id="form">  
+				    <p:fieldset id="container" legend="PrimeChat" toggleable="true">  
+				  
+				        <h:panelGroup rendered="#{chatBean.loggedIn}">  
+				  
+				            <h:panelGrid columns="2" columnClasses="publicColumn,usersColumn" style="width:100%">  
+				                <p:outputPanel id="public" layout="block" styleClass="ui-corner-all ui-widget-content chatlogs span8"/>  
+				  
+				                <p:dataList id="users" var="user" value="#{chatBean.users}" styleClass="usersList span4">  
+				                    <f:facet name="header">  
+				                        Usuário(s)  
+				                    </f:facet>  
+				  
+				                    <p:commandButton title="Chat" icon="ui-icon-comment" oncomplete="pChat.show()" update=":form:privateChatContainer">  
+				                        <f:setPropertyActionListener value="#{user}" target="#{chatBean.privateUser}" />  
+				                    </p:commandButton>  
+				                    #{user.username}  
+				                </p:dataList>  
+				            </h:panelGrid>  
+				  
+				            <p:separator />  
+				  
+				            <p:inputText value="#{chatBean.globalMessage}" styleClass="messageInput" />  
+				            <p:spacer width="5" />  
+				            <p:commandButton value="Send" actionListener="#{chatBean.sendGlobal}" oncomplete="$('.messageInput').val('').focus()"/>  
+				            <p:spacer width="5" />  
+				            <p:commandButton value="Disconnect" actionListener="#{chatBean.disconnect}" global="false" update="container" />  
+				        </h:panelGroup>  
+				  
+				        <h:panelGroup rendered="#{not chatBean.loggedIn}" >  
+				            Username: <p:inputText value="#{chatBean.username}" />  
+				  
+				            <p:spacer width="5" />  
+				            <p:commandButton value="Login" actionListener="#{chatBean.login}" update="container"   
+				                                icon="ui-icon-person" />  
+				        </h:panelGroup>  
+				  
+				    </p:fieldset>  
+				  
+				    <p:dialog widgetVar="pChat" header="Private Chat" modal="true" showEffect="fade" hideEffect="fade">  
+				        <h:panelGrid id="privateChatContainer" columns="2" columnClasses="vtop,vtop">  
+				            <p:outputLabel for="pChatInput" value="To: #{chatBean.privateUser}" />  
+				            <p:inputTextarea id="pChatInput" value="#{chatBean.privateMessage}" rows="5" cols="30" />  
+				  
+				            <p:spacer />  
+				            <p:commandButton value="Send" actionListener="#{chatBean.sendPrivate}" oncomplete="pChat.hide()" />  
+				        </h:panelGrid>  
+				    </p:dialog>  
+				  
+				</h:form> 
+			</div>
+		</div>
+		<p:socket onMessage="handleMessage" channel="/chat" autoConnect="false" widgetVar="subscriber"/>  
+		<script type="text/javascript">  
+		    function handleMessage(data) {  
+		        var chatContent = $(PrimeFaces.escapeClientId('form:public'));  
+		        chatContent.append(data + '<br />');  
+		  
+		        //keep scroll  
+		        chatContent.scrollTop(chatContent.height());  
+		    }  
+		</script> 
 	</ui:define>
 </ui:composition>
 </html>
