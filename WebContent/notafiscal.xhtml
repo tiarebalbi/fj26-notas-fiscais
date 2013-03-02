@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<ui:composition template="/_template.xhtml">
+		<ui:define name="corpo">
+			<div class="span12">
+				<h:form id="notaRegister">
+					<h3>
+						<h:outputText value="Nota Fiscal" />
+					</h3>
+					<!--Mensagem-->
+					<h:outputFormat rendered="#{not empty notaFiscalBean.mensagem}">
+						<span class="alert alert-success span8">#{notaFiscalBean.mensagem}</span>
+					</h:outputFormat>
+	
+					<h:panelGrid columns="2">
+						<h:outputLabel value="CNPJ:" for="inputInfo"></h:outputLabel>
+						<p:inputMask value="#{notaFiscalBean.notaFiscal.cnpj}" mask="999.999.999/9999-99" />
+	
+						<h:outputLabel value="Data:" for="data"></h:outputLabel>
+						<p:calendar pattern="dd/MM/yyyy" value="#{notaFiscalBean.notaFiscal.data.time}" id="data" />
+						
+						<h:commandButton action="#{notaFiscalBean.guardar}" value="Salvar" styleClass="btn">
+							<f:ajax render="@form :itemList" execute="@form"></f:ajax>
+						</h:commandButton>
+					</h:panelGrid>
+					<hr/>
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Produtos:" for="produtos"></h:outputLabel>
+						<h:selectOneMenu value="#{notaFiscalBean.idProduto}">
+							<f:selectItems value="#{produtoBean.produtos}" var="produto" itemValue="#{produto.id}" 
+							itemLabel="#{produto.nome}"/>
+						</h:selectOneMenu>
+						
+						<h:outputLabel value="Quantidade:" for="quantidade"></h:outputLabel>
+						<h:inputText value="#{notaFiscalBean.item.quantidade}" id="quantidade" />
+					</h:panelGrid>
+					<h:commandButton action="#{notaFiscalBean.guardaItem}" value="Adicionar" styleClass="btn">
+						<f:ajax render="@form :itemList" execute="@form"></f:ajax>
+					</h:commandButton>
+				</h:form>
+			</div>
+			<div>
+				<h3>Item(s) da Nota Fiscal</h3>
+				<h:form id="itemList">
+					<p:dataTable  var="item" value="#{notaFiscalBean.notaFiscal.itens}"  
+			                 paginator="true" rows="10"  
+			                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+			                 rowsPerPageTemplate="5,10,15">  
+			  
+			        <p:column>  
+			            <f:facet name="header">  
+			                <h:outputText value="Nome do Produto" />  
+			            </f:facet>  
+			            <h:outputText value="#{item.produto.nome}" />  
+			        </p:column>  
+			  
+			        <p:column>  
+			            <f:facet name="header">  
+			                <h:outputText value="Quantidade" />  
+			            </f:facet>  
+			            <h:outputText value="#{item.quantidade}" />  
+			        </p:column>  
+			  
+			        <p:column>  
+			            <f:facet name="header">  
+			                <h:outputText value="Preço Unitário" />  
+			            </f:facet>  
+			            <h:outputText value="#{item.valorUnitario}">
+							<f:convertNumber pattern="R$ #0.00"></f:convertNumber>
+						</h:outputText>
+			        </p:column>  
+			        <p:column>  
+			            <f:facet name="header">  
+			                <h:outputText value="Total" />  
+			            </f:facet>  
+			            <h:outputText value="#{item.valorUnitario*item.quantidade}">
+							<f:convertNumber pattern="R$ #0.00"></f:convertNumber>
+						</h:outputText>
+			        </p:column>  
+			    </p:dataTable>
+			</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>
