@@ -39,11 +39,6 @@ public class ChatBean {
 	private boolean loggedIn;
 
 	private String privateUser;
-	
-	
-	public ChatUsers getUsers() {
-		return users;
-	}
 
 	private final static String CHANNEL = "/chat/";
 
@@ -93,8 +88,7 @@ public class ChatBean {
 
 	public void sendGlobal() {
 		pushContext.push(CHANNEL + "*", username + ": " + globalMessage);
-		String sinf = CHANNEL.toString() + "*"+ username + ": " + globalMessage;
-		System.out.println(sinf);
+
 		globalMessage = null;
 	}
 
@@ -107,7 +101,7 @@ public class ChatBean {
 
 	public void login() {
 		RequestContext requestContext = RequestContext.getCurrentInstance();
-		
+
 		if (users.contains(username)) {
 			loggedIn = false;
 			FacesContext.getCurrentInstance().addMessage(

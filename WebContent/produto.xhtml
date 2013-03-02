@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://java.sun.com/jsf/html">
 	<ui:composition template="/_template.xhtml">
 		<ui:define name="corpo">
@@ -45,23 +46,18 @@
 			<div class="span12">
 				<h3>Lista de Produto</h3>
 				<h:form id="produtosList">
-					<h:dataTable value="#{produtoBean.produtos}" var="produto"
+					<p:dataTable value="#{produtoBean.produtos}" var="produto"
 						styleClass="table table-striped">
-						<h:column>
+						<p:column>
 							<f:facet name="header">Nome</f:facet>
 							#{produto.nome}
-						</h:column>
-						<h:column>
-							<f:facet name="header">Descrição</f:facet>
-							<f:facet name="footer">Total:</f:facet>
-							#{produto.descricao}
-						</h:column>
-						<h:column>
+						</p:column>
+						<p:column>
 							<f:facet name="header">Preço</f:facet>
 							<f:facet name="footer">R$ #{produtoBean.somatoria}</f:facet>
 							R$ #{produto.preco}
-						</h:column>
-						<h:column>
+						</p:column>
+						<p:column>
 							<f:facet name="header">Ação</f:facet>
 							<h:commandLink value="Alterar" styleClass="btn">
 								<f:setPropertyActionListener value="#{produto}"
@@ -73,8 +69,8 @@
 								value="Remover" styleClass="btn btn-danger">
 								<f:ajax render="@form"></f:ajax>
 							</h:commandLink>
-						</h:column>
-					</h:dataTable>
+						</p:column>
+					</p:dataTable>
 				</h:form>
 			</div>
 		</ui:define>

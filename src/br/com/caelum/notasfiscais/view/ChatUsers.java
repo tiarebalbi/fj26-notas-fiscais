@@ -3,75 +3,43 @@
  */
 package br.com.caelum.notasfiscais.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import br.com.caelum.notasfiscais.dao.ChatDAO;
-import br.com.caelum.notasfiscais.modelo.Chat;
+import javax.annotation.PostConstruct;
 
 /**
- * 
- * 
  * @author Tiarê Balbi Bonamini
  * @date Mar 2, 2013
  * @package br.com.caelum.notasfiscais.view
- *
+ * 
  */
 public class ChatUsers {
-	
-	private ChatDAO dao;
-	
-	private String username;
-	
-	public ChatDAO getDao() {
-		return dao;
+
+	private List<String> users = new ArrayList<String>();
+
+	@PostConstruct
+	public void init() {
+		this.users = new ArrayList<String>();
 	}
 
-	public void setDao(ChatDAO dao) {
-		this.dao = dao;
+	public List<String> getUsers() {
+		return users;
 	}
 
-	public String getUsername() {
-		return username;
+	public void setUsers(List<String> users) {
+		this.users = users;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void addUser(String user) {
+		this.users.add(user);
 	}
 
-	/**
-	 * 
-	 */
-	public ChatUsers() {
-		this.dao = new ChatDAO();
+	public void removeUser(String user) {
+		this.users.remove(user);
 	}
 
-	/**
-	 * @param username
-	 * @return boolean
-	 */
-	public boolean contains(String username) {
-		return this.dao.existe(username);
+	public boolean contains(String user) {
+		return this.users.contains(user);
 	}
-
-	/**
-	 * @param username
-	 */
-	public void addUser(String username) {
-		this.username = username;
-		this.dao.adicionar(username);
-	}
-
-	/**
-	 * @param username
-	 */
-	public void removeUser(String username) {
-		this.username = "";
-		this.dao.remove(username);
-		
-	}
-	
-	public List<Chat> lista () {
-		return null;
-	}
-
 }
