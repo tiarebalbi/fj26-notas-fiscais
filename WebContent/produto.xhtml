@@ -18,26 +18,28 @@
 						<span class="alert alert-success span8">#{produtoBean.mensagem}</span>
 					</h:outputFormat>
 	
-	
 					<h:panelGrid columns="2">
 						<h:outputLabel value="Nome:" for="nome"></h:outputLabel>
 						<h:inputText value="#{produtoBean.produto.nome}" id="nome">
+							<f:validator validatorId="comecaComMaiusculo"></f:validator>
+							<f:validateLength maximum="20"></f:validateLength>
 						</h:inputText>
 	
 						<h:outputLabel value="Descrição:" for="descricao"></h:outputLabel>
-						<h:inputTextarea value="#{produtoBean.produto.descricao}"
-							id="descricao" />
+						<p:editor value="#{produtoBean.produto.descricao}" id="descricao" required="true" requiredMessage="Campo Descrição é Obrigatorio" />  
 	
 						<h:outputLabel value="Preço:" for="preco"></h:outputLabel>
-						<h:inputText id="preco" value="#{produtoBean.produto.preco}" />
+						<h:inputText id="preco" value="#{produtoBean.produto.preco}">
+						</h:inputText>
 	
 						<h:commandButton value="Gravar" action="#{produtoBean.grava}"
 							styleClass="btn btn-inverse">
-							<f:ajax execute="@form" render="@form :produtosList"></f:ajax>
+							<f:ajax execute=":productRegister" render=":productRegister :notification :produtosList"/>
 						</h:commandButton>
+						
 						<h:commandButton value="Cancelar"
 							rendered="#{not empty produtoBean.produto.id}"
-							action="#{produtoBean.clean}" styleClass="btn btn-primary">
+							action="produto" immediate="true" styleClass="btn btn-primary">
 							<f:ajax execute="@form" render="@form :produtosList"></f:ajax>
 						</h:commandButton>
 					</h:panelGrid>

@@ -8,14 +8,6 @@
 			<div class="span12">
 				<h3>Lista de Notas Fiscais</h3>
 				<h:form prependId="false"> 
-					<p:menubar>
-						<p:menuitem value="Produtos" url="produto.xhtml" />
-						<p:submenu label="Notas Fiscais">
-							<p:menuitem value="Lista de Notas Fiscais" url="notafiscal.xhtml" />
-							<p:menuitem value="Nova Nota Fiscal" url="cadastro-nota.xhtml" />
-						</p:submenu>
-					</p:menubar>
-					
 				    <p:dataTable var="notaFiscal" value="#{listaNotasFiscaisBean.dataModel}"  
 				                 paginator="true" rows="5"
 				                 dynamic="true"
@@ -33,7 +25,7 @@
 				            <f:facet name="header">  
 				                <h:outputText value="CNPJ:" />  
 				            </f:facet>  
-				            <h:outputText value="#{notaFiscal.cnpj}" />  
+				            <h:outputText converter="cnpj" value="#{notaFiscal.cnpj}"  />  
 				        </p:column>  
 				  
 				        <p:column>  

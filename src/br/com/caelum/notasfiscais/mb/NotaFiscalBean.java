@@ -5,8 +5,12 @@ package br.com.caelum.notasfiscais.mb;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.validation.ValidationException;
 
 import br.com.caelum.notasfiscais.dao.DAO;
 import br.com.caelum.notasfiscais.modelo.Item;
@@ -47,7 +51,7 @@ public class NotaFiscalBean implements Serializable {
 		notaFiscal.getItens().add(item);
 		item = new Item();
 	}
-
+	
 	public Long getIdProduto() {
 		return idProduto;
 	}

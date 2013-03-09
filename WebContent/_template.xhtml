@@ -10,7 +10,7 @@
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </h:head>
 <h:body>
-	<div class="header">
+	<div class="header-custom">
 		<h1 style="float: left;">Uberdist</h1>
 		<span style="float: right; margin-right: 10px; line-height: 35px;">
 			<h:form>
@@ -32,7 +32,8 @@
 				</p:themeSwitcher>
 			</h:form>
 		</span>
-		<span style="float: right; margin-right: 10px; line-height: 35px;">Usuário: <b>#{loginBean.usuario.login}</b></span>
+		<span style="float: right; margin-right: 10px; line-height: 35px;">Usuário: <b>#{usuarioLogado.usuario.login}</b>
+		</span>
 	</div>
 	<div class="sidebar">
 		<div class="menu">
@@ -51,6 +52,37 @@
 	<div class="container-custom container-fluid">
 		<div class="content">
 			<!-- Conteúdo -->
+			<script>
+				$(document).ready(function() {
+					
+					
+					$(document).delay(10,function(e) {
+					    if(e.which == 13) {
+					    	$('.ui-terminal-content').animate({
+							    scrollBottom: $('.ui-terminal-content').get(0).scrollHeight
+							}, 1);
+					    }
+					});
+				});
+			</script>
+			<h:form>  
+			    <p:graphicImage value="http://www.primefaces.org/showcase/images/terminal.png" onclick="dlg.show();term.focus();" style="cursor:pointer"/>  
+			  	<p:growl id="alert-terminal" showDetail="false" sticky="true" />
+			    <p:dialog widgetVar="dlg" height="400" header="Terminal" resizable="true" modal="false">  
+			        <p:terminal widgetVar="term" commandHandler="#{terminalBean.handleCommand}" width="590px" prompt="caelum:"  
+			                    welcomeMessage="Seja Bem Vindo #{usuarioLogado.usuario.login}, O que posso fazer para te ajudar?"/>  
+			    </p:dialog>  
+			</h:form> 
+			<div class="row-fluid">
+				<p:menubar>
+					<p:menuitem value="Produtos" url="produto.xhtml" />
+					<p:submenu label="Notas Fiscais">
+						<p:menuitem value="Lista de Notas Fiscais" url="notafiscal.xhtml" />
+						<p:menuitem value="Nova Nota Fiscal" url="cadastro-nota.xhtml" />
+					</p:submenu>
+				</p:menubar>
+				<p:growl id="notification" showDetail="false" sticky="true" />  
+			</div>
 			<div class="row-fluid">
 				<ui:insert name="corpo" />
 			</div>

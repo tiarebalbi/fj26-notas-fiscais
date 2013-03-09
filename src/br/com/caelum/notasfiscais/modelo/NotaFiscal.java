@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class NotaFiscal {
@@ -19,6 +23,7 @@ public class NotaFiscal {
 	@GeneratedValue
 	private Long id;
 
+	@NotEmpty(message="O Campo CNPJ é Obrigatorio")
 	private String cnpj;
 
 	@Temporal(TemporalType.DATE)

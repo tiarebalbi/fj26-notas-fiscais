@@ -1,10 +1,10 @@
-/**
- * 
- */
 package br.com.caelum.notasfiscais.mb;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.caelum.notasfiscais.dao.UsuarioDAO;
 import br.com.caelum.notasfiscais.modelo.Usuario;
@@ -17,24 +17,33 @@ import br.com.caelum.notasfiscais.modelo.Usuario;
  * @package br.com.caelum.notasfiscais.mb
  *
  */
-@ManagedBean(name="loginBean")
-@SessionScoped
-public class LoginBean {
+@Named
+@RequestScoped
+public class LoginBean implements Serializable{
 
-	private Usuario usuario = new Usuario();
+	private static final long serialVersionUID = 3497397471709212914L;
+	
+	@Inject
+	private UsuarioLogado usuarioLogado;
+
+	@Inject
+	private Usuario usuario;
 	
 	private String mensagem = "";
+
+	@Inject
+	private UsuarioDAO dao;
 	
 	/**
 	 * @return pagina Deve efetuar o login do usuário
 	 */
 	public String efetuarLogin() {
-		UsuarioDAO dao = new UsuarioDAO();
 		Boolean status = dao.existe(usuario);
 		if(status) {
+			usuarioLogado.setUsuario(usuario);
 			return "index?faces-redirect=true";
 		}
-		this.usuario.setSenha("");
+		usuarioLogado.getUsuario().setSenha("");
 		this.mensagem = "Usuário não foi encontrado";
 		return "login?faces-redirect=true";
 	}
@@ -65,6 +74,8 @@ public class LoginBean {
 	 * @return boolean
 	 */
 	public boolean isLogado() {
-		return this.getUsuario().getLogin() != null;
+		return this.usuarioLogado.isLogado();
 	}
+	
+	
 }

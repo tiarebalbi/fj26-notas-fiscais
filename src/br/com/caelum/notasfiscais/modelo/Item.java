@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Item {
@@ -16,7 +19,7 @@ public class Item {
 
 	@ManyToOne
 	private Produto produto;
-
+	
 	private Integer quantidade;
 	
 	private Double valorUnitario;

@@ -2,8 +2,13 @@ package br.com.caelum.notasfiscais.mb;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
+import javax.validation.ValidationException;
 
 import br.com.caelum.notasfiscais.dao.DAO;
 import br.com.caelum.notasfiscais.modelo.Produto;
@@ -119,6 +124,19 @@ public class ProdutoBean {
 		this.produtos = dao.listaTodos();
 		this.somatoria = this.doSomatoria(produtos);
 		this.mensagem = "Registro Removido com Sucesso";
+	}
+	
+	/**
+	 * @param ctx
+	 * @param component
+	 * @param value
+	 */
+	public void comecaComMaiuscula ( FacesContext ctx, UIComponent component, Object value ) throws ValidatorException {
+		String valor = value.toString();
+		if(!valor.matches("[A-Z].*")) {
+			FacesMessage notification = new FacesMessage("A Primeira letra deve ser maiscula");
+			throw new ValidatorException(notification);
+		}
 	}
 	
 	/**

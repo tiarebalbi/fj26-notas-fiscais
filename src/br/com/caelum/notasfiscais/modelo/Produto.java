@@ -4,15 +4,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Produto {
 	@Id @GeneratedValue
 	private Long id;
 
+	@NotEmpty(message="O Campo Nome é obrigatorio")
 	private String nome;
 	
 	private String descricao;
-
+	
 	private Double preco;
 
 	public Long getId() {
