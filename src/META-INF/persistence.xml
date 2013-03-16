@@ -6,7 +6,6 @@
     <class>br.com.caelum.notasfiscais.modelo.NotaFiscal</class>
     <class>br.com.caelum.notasfiscais.modelo.Produto</class>
     <class>br.com.caelum.notasfiscais.modelo.Usuario</class>
-    <class>br.com.caelum.notasfiscais.modelo.Chat</class>
     
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

@@ -1,40 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://java.sun.com/jsf/html">
-<h:head>
-	<title>Sistema de Notas Fiscais</title>
-	<link href="css/style.css" rel="stylesheet" type="text/css" />
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-</h:head>
-<h:body>
-	<div class="header">
-		<h1>Uberdist</h1>
-	</div>
-	<div class="sidebar">
-		<div class="menu">
-			<ul>
-				<li><a href="index.xhtml"><span class="icon"></span>Página Inicial</a></li>
-				<li><a href="lista-produtos.xhtml"><span class="icon"></span>Produto(s)</a></li>
-			</ul>
+<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+		<div class="hero-unit">
+			<h1>Bem Vindo, #{loginBean.usuario.login}</h1>
+			<p>Esta aplicação foi desenvolvida durante o curso FJ-26 na
+				Caelum.</p>
+			<p>
+				<a href="http://www.caelum.com.br/curso-java-web-jsf-cdi/"
+					target="_blank" class="btn btn-primary btn-large">Veja Mais </a>
+			</p>
 		</div>
-		<div class="copyright">
-			<div class="logo-caelum"></div>
-			Curso FJ-26<br/>
-			Tiarê Balbi Bonamini
-		</div>
-	</div>
-	<div class="container-custom">
-		<div class="content ">
-			<h3>Página Inicial</h3>
-			<h:form>
-				<h:inputText />
-				<br/>
-				<h:commandButton styleClass="btn btn-inverse" value="Clique-me"></h:commandButton>
-			</h:form>
 
-		</div>
-	</div>
+		<!-- Example row of columns -->
+		<p:growl id="growl" showDetail="true" />
 
-</h:body>
+		<div class="row-fluid">
+			<div class="span12">
+				<h3>Testes</h3>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
 </html>

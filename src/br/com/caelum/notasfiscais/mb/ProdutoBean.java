@@ -3,14 +3,15 @@ package br.com.caelum.notasfiscais.mb;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import javax.validation.ValidationException;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+import br.com.caelum.notasfiscais.annotations.Transactional;
 import br.com.caelum.notasfiscais.dao.DAO;
 import br.com.caelum.notasfiscais.modelo.Produto;
 
@@ -21,27 +22,25 @@ import br.com.caelum.notasfiscais.modelo.Produto;
  * @date Feb 23, 2013
  * @package br.com.caelum.notasfiscais.mb
  * @see Produto
- *
+ * 
  */
-@ManagedBean
-@ViewScoped
+@Named
+@RequestScoped
 public class ProdutoBean implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3432472731736272263L;
 
 	private Produto produto = new Produto();
-	
+
 	private List<Produto> produtos;
 
 	private double somatoria = 0;
-	
+
 	private String mensagem = "";
-	
+
+	@Inject
 	private DAO<Produto> dao;
-	
+
 	/**
 	 * @return DAO<Produto>
 	 */
@@ -55,18 +54,11 @@ public class ProdutoBean implements Serializable {
 	public void setDao(DAO<Produto> dao) {
 		this.dao = dao;
 	}
-	
-	/**
-	 * 
-	 */
-	public ProdutoBean() {
-		this.dao = new DAO<Produto>(Produto.class);
-	}
 
 	/**
 	 * Getter de {@link #produto}
 	 * 
-	 * @return produto 
+	 * @return produto
 	 */
 	public Produto getProduto() {
 		return produto;
@@ -75,7 +67,7 @@ public class ProdutoBean implements Serializable {
 	/**
 	 * Setter de {@link #produto}
 	 * 
-	 * @param produto 
+	 * @param produto
 	 */
 	public void setProduto(Produto produto) {
 		this.produto = produto;
@@ -83,14 +75,16 @@ public class ProdutoBean implements Serializable {
 
 	/**
 	 * Método responsável em gravar um novo produto;
-	 * @throws InterruptedException 
+	 * 
+	 * @throws InterruptedException
 	 */
+	@Transactional
 	public void grava() {
-		
-		if(this.produto.getId() == null) {
+
+		if (this.produto.getId() == null) {
 			dao.adiciona(this.produto);
 			this.mensagem = "Registro Realizado com Sucesso";
-		}else {
+		} else {
 			this.mensagem = "Registro Atualizado com Sucesso";
 			dao.atualiza(produto);
 		}
@@ -98,21 +92,22 @@ public class ProdutoBean implements Serializable {
 		this.produtos = dao.listaTodos();
 		this.somatoria = this.doSomatoria(produtos);
 	}
-	
+
 	/**
 	 * Método responsável em retornar lista completa de produtos cadastrados
 	 * 
 	 * @return List<Produto> retorna a lista de produtos cadastrado
 	 */
+	@Transactional
 	public List<Produto> getProdutos() {
-		if(this.produtos == null) {
+		if (this.produtos == null) {
 			this.produtos = dao.listaTodos();
 			this.somatoria = this.doSomatoria(produtos);
 		}
 		this.mensagem = "";
 		return this.produtos;
 	}
-	
+
 	/**
 	 * @param produtos
 	 */
@@ -121,30 +116,34 @@ public class ProdutoBean implements Serializable {
 	}
 
 	/**
-	 *  Método para remover um produto já cadastrado
-	 *  
-	 * @param produto Objeto {@link #produto} que deverá ser removido
+	 * Método para remover um produto já cadastrado
+	 * 
+	 * @param produto
+	 *            Objeto {@link #produto} que deverá ser removido
 	 */
+	@Transactional
 	public void remove(Produto produto) {
 		dao.remove(produto);
 		this.produtos = dao.listaTodos();
 		this.somatoria = this.doSomatoria(produtos);
 		this.mensagem = "Registro Removido com Sucesso";
 	}
-	
+
 	/**
 	 * @param ctx
 	 * @param component
 	 * @param value
 	 */
-	public void comecaComMaiuscula ( FacesContext ctx, UIComponent component, Object value ) throws ValidatorException {
+	public void comecaComMaiuscula(FacesContext ctx, UIComponent component,
+			Object value) throws ValidatorException {
 		String valor = value.toString();
-		if(!valor.matches("[A-Z].*")) {
-			FacesMessage notification = new FacesMessage("A Primeira letra deve ser maiscula");
+		if (!valor.matches("[A-Z].*")) {
+			FacesMessage notification = new FacesMessage(
+					"A Primeira letra deve ser maiscula");
 			throw new ValidatorException(notification);
 		}
 	}
-	
+
 	/**
 	 * @param mensagem
 	 */
@@ -158,33 +157,33 @@ public class ProdutoBean implements Serializable {
 	public void clean() {
 		this.produto = new Produto();
 	}
-	
+
 	/**
 	 * Getter para retorno do preço total
 	 * 
 	 * @return somatoria Retornar o preço total
 	 */
-	public double getSomatoria () {
+	public double getSomatoria() {
 		return this.somatoria;
 	}
-	
+
 	/**
 	 * @return mensagem retorna String com a mensagem definida.
 	 */
-	public String getMensagem () {
+	public String getMensagem() {
 		return this.mensagem;
 	}
-	
+
 	private double doSomatoria(List<Produto> produtos) {
 		double valor = 0;
-		
-			for (Produto produto : produtos) {
-				if(produto.getPreco() != null) {
-					valor += produto.getPreco();
-				}
+
+		for (Produto produto : produtos) {
+			if (produto.getPreco() != null) {
+				valor += produto.getPreco();
 			}
-		
+		}
+
 		return valor;
 	}
-	
+
 }
