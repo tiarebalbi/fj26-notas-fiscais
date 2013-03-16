@@ -2,6 +2,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces"
 	xmlns:h="http://java.sun.com/jsf/html">
 	<ui:composition template="/_template.xhtml">
 		<ui:define name="corpo">
@@ -17,13 +18,14 @@
 					<h:outputFormat rendered="#{not empty produtoBean.mensagem}">
 						<span class="alert alert-success span8">#{produtoBean.mensagem}</span>
 					</h:outputFormat>
-	
+					<s:validateForm validatorId="nomeExistente"></s:validateForm>
+					
 					<h:panelGrid columns="2">
+						<h:outputLabel value="ID:" for="indice" rendered="#{not empty produtoBean.produto.id}"></h:outputLabel>
+						<h:inputText id="indice" value="#{produtoBean.produto.id}" readonly="true" rendered="#{not empty produtoBean.produto.id}"/>
+						
 						<h:outputLabel value="Nome:" for="nome"></h:outputLabel>
-						<h:inputText value="#{produtoBean.produto.nome}" id="nome">
-							<f:validator validatorId="comecaComMaiusculo"></f:validator>
-							<f:validateLength maximum="20"></f:validateLength>
-						</h:inputText>
+						<h:inputText value="#{produtoBean.produto.nome}" id="nome"></h:inputText>
 	
 						<h:outputLabel value="Descrição:" for="descricao"></h:outputLabel>
 						<p:editor value="#{produtoBean.produto.descricao}" id="descricao" required="true" requiredMessage="Campo Descrição é Obrigatorio" />  
