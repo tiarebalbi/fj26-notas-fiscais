@@ -6,8 +6,9 @@ package br.com.caelum.notasfiscais.mb;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.caelum.notasfiscais.dao.DAO;
 import br.com.caelum.notasfiscais.modelo.NotaFiscal;
@@ -19,12 +20,17 @@ import br.com.caelum.notasfiscais.modelo.Produto;
  * @package br.com.caelum.notasfiscais.mb
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class TerminalBean implements Serializable {
 	
 	private static final long serialVersionUID = 4221199742372702329L;
-	private DAO<Produto> dao = new DAO<Produto>(Produto.class);
+	
+	@Inject
+	private DAO<Produto> dao;
+	
+	@Inject
+	private DAO<NotaFiscal> daoNotaFiscal; 
 
 	/**
 	 * @return DAO
@@ -89,12 +95,10 @@ public class TerminalBean implements Serializable {
 			
 			return "Produto <b>'"+produto.getNome()+"'</b> foi removido com sucesso.";
 		}else if(command.equals("total-notafiscal")) {
-			DAO<NotaFiscal> dao = new DAO<NotaFiscal>(NotaFiscal.class);
-			Integer a = dao.listaTodos().size();
+			Integer a = daoNotaFiscal.listaTodos().size();
 			return "Você tem '"+a+"' notas fiscais cadastradas";
 			
 		}
-
 		
 		return "Não foi possível identificar o seu comando";
 	}

@@ -1,5 +1,7 @@
 package br.com.caelum.notasfiscais.modelo;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,7 +9,9 @@ import javax.persistence.Id;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Produto {
+public class Produto implements Serializable {
+	private static final long serialVersionUID = -4465951922612224346L;
+
 	@Id @GeneratedValue
 	private Long id;
 

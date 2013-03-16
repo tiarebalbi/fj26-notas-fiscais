@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.inject.Inject;
 
 import br.com.caelum.notasfiscais.mb.LoginBean;
 
@@ -22,7 +23,7 @@ import br.com.caelum.notasfiscais.mb.LoginBean;
 public class Autorizador implements PhaseListener {
 
 	private static final long serialVersionUID = -4045948358701216063L;
-
+	
 	/* (non-Javadoc)
 	 * @see javax.faces.event.PhaseListener#afterPhase(javax.faces.event.PhaseEvent)
 	 */

@@ -4,12 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import javax.validation.ValidationException;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.caelum.notasfiscais.dao.DAO;
 import br.com.caelum.notasfiscais.modelo.Produto;
@@ -23,16 +22,13 @@ import br.com.caelum.notasfiscais.modelo.Produto;
  * @see Produto
  *
  */
-@ManagedBean
-@ViewScoped
+@Named
 public class ProdutoBean implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3432472731736272263L;
 
-	private Produto produto = new Produto();
+	@Inject
+	private Produto produto;
 	
 	private List<Produto> produtos;
 
@@ -40,29 +36,9 @@ public class ProdutoBean implements Serializable {
 	
 	private String mensagem = "";
 	
+	@Inject
 	private DAO<Produto> dao;
 	
-	/**
-	 * @return DAO<Produto>
-	 */
-	public DAO<Produto> getDao() {
-		return dao;
-	}
-
-	/**
-	 * @param dao
-	 */
-	public void setDao(DAO<Produto> dao) {
-		this.dao = dao;
-	}
-	
-	/**
-	 * 
-	 */
-	public ProdutoBean() {
-		this.dao = new DAO<Produto>(Produto.class);
-	}
-
 	/**
 	 * Getter de {@link #produto}
 	 * 

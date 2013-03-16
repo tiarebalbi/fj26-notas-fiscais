@@ -7,9 +7,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ * 
+ * @author Tiarê Balbi Bonamini
+ * @date Mar 16, 2013
+ * @package br.com.caelum.notasfiscais.dao
+ *
+ */
 public class JPAUtil {
-	private static EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("notas");
+	
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("notas");
 
 	/**
 	 * @return EM
