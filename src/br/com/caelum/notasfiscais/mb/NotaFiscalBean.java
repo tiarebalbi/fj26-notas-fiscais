@@ -32,11 +32,12 @@ public class NotaFiscalBean implements Serializable {
 	private Long idProduto;
 	private Item item = new Item();
 	private NotaFiscal notaFiscal = new NotaFiscal();
+	
 	private String mensagem;
 	
 	@Inject
 	private DAO<NotaFiscal> dao;
-	
+//	
 	@Inject
 	private DAO<Produto> daoProduto;
 	

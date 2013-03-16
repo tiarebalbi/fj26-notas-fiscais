@@ -20,15 +20,9 @@ public class DataModelNotasFiscais extends LazyDataModel<NotaFiscal> {
 
 	private static final long serialVersionUID = -6921338747873136511L;
 	
+	@Inject
 	private DAO<NotaFiscal> dao;
 	
-	/**
-	 * @param dao
-	 */
-	public DataModelNotasFiscais(DAO<NotaFiscal> dao) {
-		this.dao = dao;
-	}
-
 	/* (non-Javadoc)
 	 * @see org.primefaces.model.LazyDataModel#load(int, int, java.lang.String, org.primefaces.model.SortOrder, java.util.Map)
 	 */
