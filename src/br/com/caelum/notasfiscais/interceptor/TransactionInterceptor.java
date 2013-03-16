@@ -1,5 +1,7 @@
 package br.com.caelum.notasfiscais.interceptor;
 
+import java.util.Calendar;
+
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
@@ -32,7 +34,7 @@ public class TransactionInterceptor {
 		Object resultado = ctx.proceed();
 //		em.getTransaction().commit();
 //		em.close();
-		System.out.println("Commitando nossa Transação!");
+		System.out.println(Calendar.getInstance().getTime() +" - Commitando nossa Transação!");
 		return resultado;
 	}
 	
