@@ -6,12 +6,11 @@ package br.com.caelum.notasfiscais.mb;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.caelum.notasfiscais.dao.DAO;
-import br.com.caelum.notasfiscais.modelo.NotaFiscal;
 import br.com.caelum.notasfiscais.modelo.Produto;
 
 /**
@@ -20,7 +19,7 @@ import br.com.caelum.notasfiscais.modelo.Produto;
  * @package br.com.caelum.notasfiscais.mb
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class TerminalBean implements Serializable {
 	

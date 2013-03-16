@@ -20,7 +20,6 @@ public class TransactionInterceptor {
 	@Inject
 	private EntityManager em;
 	
-	
 	/**
 	 * @param ctx
 	 * @return Object
@@ -28,10 +27,11 @@ public class TransactionInterceptor {
 	 */
 	@AroundInvoke
 	public Object intercept (InvocationContext ctx) throws Exception {
-		em.getTransaction().begin();
+		//TODO Verificar por que ele da o erro de transação aberta neste caso
+//		em.getTransaction().begin();
 		Object resultado = ctx.proceed();
-		em.getTransaction().commit();
-		em.close();
+//		em.getTransaction().commit();
+//		em.close();
 		System.out.println("Commitando nossa Transação!");
 		return resultado;
 	}

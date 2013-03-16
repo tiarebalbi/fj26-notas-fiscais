@@ -5,13 +5,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,7 +78,7 @@ public class ProdutoBeanTest {
 	 */
 	@Test
 	public void testeGetSomatoria () {
-		Assert.assertEquals(0d, bean.getSomatoria());
+		Assert.assertEquals(new Double(0d), new Double(bean.getSomatoria()));
 	}
 	
 	/**
@@ -120,11 +118,13 @@ public class ProdutoBeanTest {
 	 */
 	@Test
 	public void deveSalvarUmNovoProduto () {
+		produto.setNome("Nome");
 		when(dao.adiciona(produto)).thenReturn(produto);
-		bean.setProduto(produto);
 		bean.grava();
+		Produto retorno = bean.getProduto();
 		verify(dao, times(1)).adiciona(produto);
-		verify(dao, times(1)).listaTodos();
+		Assert.assertEquals(retorno.getNome(), null);
+		
 	}
 	
 	/**
