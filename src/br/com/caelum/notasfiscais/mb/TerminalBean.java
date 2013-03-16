@@ -3,6 +3,7 @@
  */
 package br.com.caelum.notasfiscais.mb;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -20,8 +21,9 @@ import br.com.caelum.notasfiscais.modelo.Produto;
  */
 @ManagedBean
 @SessionScoped
-public class TerminalBean {
+public class TerminalBean implements Serializable {
 	
+	private static final long serialVersionUID = 4221199742372702329L;
 	private DAO<Produto> dao = new DAO<Produto>(Produto.class);
 
 	/**

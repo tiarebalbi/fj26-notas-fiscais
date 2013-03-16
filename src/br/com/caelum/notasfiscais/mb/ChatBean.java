@@ -3,6 +3,8 @@
  */
 package br.com.caelum.notasfiscais.mb;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -24,7 +26,12 @@ import br.com.caelum.notasfiscais.view.ChatUsers;
  */
 @ManagedBean
 @SessionScoped
-public class ChatBean {
+public class ChatBean implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4325625275857673601L;
+
 	private final PushContext pushContext = PushContextFactory.getDefault()
 			.getPushContext();
 

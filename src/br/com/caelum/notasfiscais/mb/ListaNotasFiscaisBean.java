@@ -3,6 +3,7 @@
  */
 package br.com.caelum.notasfiscais.mb;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -20,8 +21,12 @@ import br.com.caelum.notasfiscais.modelo.NotaFiscal;
  *
  */
 @ManagedBean
-public class ListaNotasFiscaisBean {
+public class ListaNotasFiscaisBean implements Serializable  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3376241700796631182L;
 	private LazyDataModel<NotaFiscal> dataModel;
 
 	/**
