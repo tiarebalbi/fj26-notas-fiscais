@@ -2,6 +2,8 @@ package br.com.caelum.notasfiscais.datamodel;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -16,18 +18,23 @@ import br.com.caelum.notasfiscais.modelo.NotaFiscal;
  */
 public class DataModelNotasFiscais extends LazyDataModel<NotaFiscal> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6921338747873136511L;
 	
+	private DAO<NotaFiscal> dao;
+	
+	/**
+	 * @param dao
+	 */
+	public DataModelNotasFiscais(DAO<NotaFiscal> dao) {
+		this.dao = dao;
+	}
+
 	/* (non-Javadoc)
 	 * @see org.primefaces.model.LazyDataModel#load(int, int, java.lang.String, org.primefaces.model.SortOrder, java.util.Map)
 	 */
 	@Override
 	public List<NotaFiscal> load(int first, int pageSize, String sortField,
 			SortOrder sortOrder, Map<String, String> filters) {
-		DAO<NotaFiscal> dao = new DAO<NotaFiscal>(NotaFiscal.class);
 		return dao.listaTodosPaginada(first, pageSize);
 	}
 

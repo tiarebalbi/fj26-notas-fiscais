@@ -5,13 +5,11 @@ package br.com.caelum.notasfiscais.mb;
 
 import java.io.Serializable;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.validation.ValidationException;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+import br.com.caelum.notasfiscais.annotations.Transactional;
 import br.com.caelum.notasfiscais.dao.DAO;
 import br.com.caelum.notasfiscais.modelo.Item;
 import br.com.caelum.notasfiscais.modelo.NotaFiscal;
@@ -25,8 +23,9 @@ import br.com.caelum.notasfiscais.modelo.Produto;
  * @package br.com.caelum.notasfiscais.mb
  *
  */
-@ManagedBean
-@ViewScoped
+@Named
+@RequestScoped
+@Transactional
 public class NotaFiscalBean implements Serializable {
 	
 	private static final long serialVersionUID = -6047290938461793285L;
@@ -35,16 +34,22 @@ public class NotaFiscalBean implements Serializable {
 	private NotaFiscal notaFiscal = new NotaFiscal();
 	private String mensagem;
 	
+	@Inject
+	private DAO<NotaFiscal> dao;
+	
+	@Inject
+	private DAO<Produto> daoProduto;
+	
+	@Transactional
 	public String guardar() {
-		DAO<NotaFiscal> dao = new DAO<NotaFiscal>(NotaFiscal.class);
 		dao.adiciona(notaFiscal);
 		this.notaFiscal = new NotaFiscal();
 		return "notafiscal?face-redirect=true";
 	}
 	
+	@Transactional
 	public void guardaItem() {
-		DAO<Produto> dao = new DAO<Produto>(Produto.class);
-		Produto produto = dao.buscaPorId(this.idProduto);
+		Produto produto = daoProduto.buscaPorId(this.idProduto);
 		item.setProduto(produto);
 		item.setNotaFiscal(this.notaFiscal);
 		item.setValorUnitario(produto.getPreco());

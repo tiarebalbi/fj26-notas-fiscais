@@ -4,9 +4,9 @@
 package br.com.caelum.notasfiscais.mb;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.faces.bean.ManagedBean;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.model.LazyDataModel;
 
@@ -20,22 +20,24 @@ import br.com.caelum.notasfiscais.modelo.NotaFiscal;
  * @package br.com.caelum.notasfiscais.mb
  *
  */
-@ManagedBean
+@Named
 public class ListaNotasFiscaisBean implements Serializable  {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3376241700796631182L;
+	
 	private LazyDataModel<NotaFiscal> dataModel;
+	
+	@Inject
+	private DAO<NotaFiscal> dao;
 
 	/**
 	 * 
 	 */
 	public ListaNotasFiscaisBean () {
-		
-		this.dataModel = new DataModelNotasFiscais();
-		DAO<NotaFiscal> dao = new DAO<NotaFiscal>(NotaFiscal.class);
+		this.dataModel = new DataModelNotasFiscais(dao);
 		this.dataModel.setRowCount(dao.contaTodos());
 	}
 
